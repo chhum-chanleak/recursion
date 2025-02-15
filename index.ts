@@ -56,31 +56,78 @@ const getSplittedArray = (nums: number[]): [number[], number[]] => {
   return [left, right]; // [left, right] = [[1], [2, 3]]
 };
 
-console.log(getSplittedArray([1, 2, 3]));
+// console.log(getSplittedArray([1, 2, 3]));
 
 // splitArray([]), length == 0, left = [], right = [], return [[], []]
 // splitArray([1]), length == 1, left = [], right = [1], return [[], [1]];
 // splitArray([1, 2]), length != 0, left = [1], right = [2], return [[1], [2]]
 // splitArray([1, 2, 3]), length != 0, left = [1], right = [2, 3], return [[1], [2, 3]]
 
-const merge = (left: number[], right: number[]): number[] => {
-  let result: number[] = [];
-  let i = 0, j = 0;
+// Exercise 2: fibonacci
 
-  // Compare elements from both halves and merge them in sorted order
-  while (i < left.length && j < right.length) {
-    if (left[i] < right[j]) {
-      result.push(left[i]);
-      i++;
+// Solution
+
+const fibonacci = (num: number): number[] => {
+  // Base case
+  if (num === 1) {
+    return [0];
+  }
+
+  if (num === 2) {
+    return [0, 1];
+  }
+
+  const result: number[] = [];
+
+
+  return fibonacci(2).concat(fibonacci(num - 2) )
+};
+
+console.log(fibonacci(4));
+
+// fib(3), return fib(1).slice(1)[0] + fib(2).slice(1)[0] =  0 + 1 = 1 [0, 1, 1]
+// fib(2), return [0, 1]
+// fib(1), return [0]
+
+const merge = (left: number[], right: number[]): number[] => {
+  // Initialization
+  const result: number[] = [];
+  let leftIndex = 0;
+  let rightIndex = 0;
+
+  // Systematic iteration
+  while (leftIndex < left.length && rightIndex < right.length) {
+    // Logical comparison
+    if (left[leftIndex] < right[rightIndex]) {
+      result.push(left[leftIndex]);
+      leftIndex += 1;
     } else {
-      result.push(right[j]);
-      j++;
+      result.push(right[rightIndex]);
+      rightIndex += 1;
     }
   }
 
-  // Add remaining elements from left or right array
-  return [...result, ...left.slice(i), ...right.slice(j)];
+  // Finalization
+  return result
+        .concat(left.slice(leftIndex))
+        .concat(right.slice(rightIndex));
 };
 
-// Example usage:
-console.log(merge(getSplittedArray([1, 2, 3, 5, 6, 7])[0], getSplittedArray([1, 2, 3, 5, 6, 7])[1])); // Output: [1, 2, 3, 5, 6, 7]
+const mergeSort = (nums: number[]): number[] => {
+  // Base case
+  if (nums.length <= 1) {
+    return nums;
+  }
+
+  // Get midpoint of nums
+  const mid = Math.floor(nums.length / 2);
+
+  // Recursive cases
+  const left = mergeSort(nums.slice(0, mid));
+  const right = mergeSort(nums.slice(mid));
+
+  // Finalization
+  return merge(left, right);
+};
+
+// console.log(mergeSort([2, 15, 6, 14]));
