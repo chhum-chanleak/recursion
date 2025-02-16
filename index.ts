@@ -67,27 +67,22 @@ const getSplittedArray = (nums: number[]): [number[], number[]] => {
 
 // Solution
 
-const fibonacci = (num: number): number[] => {
+const fibonacci = (num: number, sequence: number[] = [0, 1]): number[] => {
   // Base case
-  if (num === 1) {
-    return [0];
+  if (num <= 0) {
+    return [];
   }
 
-  if (num === 2) {
-    return [0, 1];
+  if (num <= sequence.length) {
+    return sequence.slice(0, num);
   }
 
-  const result: number[] = [];
-
-
-  return fibonacci(2).concat(fibonacci(num - 2) )
+  return fibonacci(num, [...sequence, sequence[sequence.length - 1] + sequence[sequence.length - 2]]);
 };
 
-console.log(fibonacci(4));
+// console.log(fibonacci(3));
 
-// fib(3), return fib(1).slice(1)[0] + fib(2).slice(1)[0] =  0 + 1 = 1 [0, 1, 1]
-// fib(2), return [0, 1]
-// fib(1), return [0]
+// fibonacci(3), return fibonacci(3, [0, 1, 1])
 
 const merge = (left: number[], right: number[]): number[] => {
   // Initialization
