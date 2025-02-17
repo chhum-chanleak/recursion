@@ -68,7 +68,7 @@ const getSplittedArray = (nums: number[]): [number[], number[]] => {
 // Solution
 
 const fibonacci = (num: number, sequence: number[] = [0, 1]): number[] => {
-  // Base case
+  // Base cases
   if (num <= 0) {
     return [];
   }
@@ -77,6 +77,7 @@ const fibonacci = (num: number, sequence: number[] = [0, 1]): number[] => {
     return sequence.slice(0, num);
   }
 
+  // Recursive case
   return fibonacci(num, [...sequence, sequence[sequence.length - 1] + sequence[sequence.length - 2]]);
 };
 
@@ -103,6 +104,7 @@ const merge = (left: number[], right: number[]): number[] => {
   }
 
   // Finalization
+  // Append remaining element
   return result
         .concat(left.slice(leftIndex))
         .concat(right.slice(rightIndex));
