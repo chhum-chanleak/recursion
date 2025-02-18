@@ -209,7 +209,7 @@ const countOddNumbers = (nums: number[], start = 0, end = nums.length): number =
   return left + right;
 };
 
-console.log(countOddNumbers([0, 1, 2]));
+// console.log(countOddNumbers([0, 1, 2]));
 
 // 1st call countOddNumbers([0, 1, 2], 0, 3) = 1
 // start < end
@@ -235,3 +235,65 @@ console.log(countOddNumbers([0, 1, 2]));
 // 5th call countOddNumbers([0, 1, 2], 2, 3) = 0
 // 2 == 3 - 1
 // 2 mod 2 == 0, return 0
+
+// Exercise 6: Given an array of numbers, find the sum of all elements using the Divide and Conquer approach.
+
+// Solution
+
+const sumArray = (nums: number[], start = 0, end = nums.length): number => {
+  // Base cases
+  if (start >= end) return 0;
+  if (start === end - 1) return nums[start];
+
+  // Get mid point of nums
+  const mid = Math.floor((start + end) / 2);
+
+  // Recursive cases
+  const leftSum = sumArray(nums, start, mid);
+  const rightSum = sumArray(nums, mid, end);
+
+  // Finalization
+  return leftSum + rightSum;
+};
+
+console.log(sumArray([0, 1, 2]));
+
+// 1st call sumArray([0, 1, 2], 0, 3) = 3
+// start !>= end
+// start != end - 1
+// mid = Math.floor((start + end) / 2) = 1;
+// leftSum = sumArray([0, 1, 2], 0, 1) = 0
+// rightSum = sumArr([0, 1, 2], 1, 3) = 3
+// return 0 + 3 = 3
+
+// 2nd call sumArray([0, 1, 2], 0, 1) = 0
+// start == end - 1 return 0
+
+// 3rd call sumArray([0, 1, 2], 1, 3) = 3
+// start !>= end
+// start != end - 1
+// mid = Math.floor((start + end) / 2) = 2;
+// leftSum = sumArray([0, 1, 2], 1, 2) = 1 
+// rightSum = sumArray([0, 1, 2], 2, 3) = 2
+// return 1 + 2 = 3
+
+// 4th call sumArray([0, 1, 2], 1, 2) = 1
+// start == end - 1 return 1
+
+// 5th call sumArray([0, 1, 2], 2, 3) = 2
+// start == end - 1 return 2
+
+// Exercise 7: Calculate base raised to the power of exponent (base^exponent), where base is a real number and exponent is a non-negative integer.
+
+// Solution
+
+// 1st call raisePower(2, 2)
+// exp != 0
+// return 2 * raisePower(2, 2 * 1) = 2 * 2 = 4
+
+// 2nd call raisePower(2, 2 * 1) = 2
+// exp != 0
+// return 2 * raisePower(2, 0) = 2 * 1 = 2
+
+// 3rd call raisePower(2, 0) = 1
+// exp == 0 return 1
