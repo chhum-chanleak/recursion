@@ -127,4 +127,37 @@ const mergeSort = (nums: number[]): number[] => {
   return merge(left, right);
 };
 
-// console.log(mergeSort([2, 15, 6, 14]));
+// console.log(mergeSort([2, 15, 6, 14]))
+
+// Assignment
+
+const fibs = (numberOfTerms: number): number[] => {
+  // Initialization
+  const sequences = [0, 1];
+
+  // Systematic iteration
+  for (let i = 2; i <= numberOfTerms; i += 1) {
+    sequences.push(sequences[i - 1] + sequences[i - 2]);
+  }
+
+  // Finalization
+  return sequences;
+};
+
+// console.log(fibs(8)); output: [0, 1, 2, 3, 5, 8, 13]
+
+// Using "collapse then bubble" pattern
+const fibsRec = (numberOfTerms: number): number[] => {
+  // Base cases
+  if (numberOfTerms <= 1) return [0];
+  if (numberOfTerms === 2) return [0, 1];
+
+  // Collapse
+  const prev = fibsRec(numberOfTerms - 1);
+  const nextValue = prev[prev.length - 1] + prev[prev.length - 2];
+
+  // Accumulate
+  return [...prev, nextValue];
+};
+
+// console.log(fibsRec(8)); output: [0, 1, 1, 2, 3, 5, 8, 13]
